@@ -42,18 +42,18 @@ export const initTablesDB = async () => {
     // insert table design doc
     await db.insert(designDoc);
 
-    // Define venues and add tables
-    const venues = ["venue_1", "venue_2", "venue_3"];
-    const tablesPerVenue = 5;
+    // Define places and add tables
+    const places = ["place_1", "place_2", "place_3"];
+    const tablesPerplace = 10;
 
-    for (const venueId of venues) {
-      for (let i = 1; i <= tablesPerVenue; i++) {
+    for (const placeId of places) {
+      for (let i = 1; i <= tablesPerplace; i++) {
         const tableDoc = {
-          id: `${venueId}_table_${i}`,
+          id: `${placeId}_table_${i}`,
           type: "table",
           table_number: i,
           status: "available", // or any other default value
-          venue_id: venueId,
+          place_id: placeId,
         };
         await db.insert(tableDoc as any);
       }

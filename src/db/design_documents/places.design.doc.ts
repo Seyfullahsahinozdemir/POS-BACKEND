@@ -1,7 +1,7 @@
 export const designDoc = {
   _id: "_design/validation",
   validate_doc_update: `function (newDoc, oldDoc, userCtx, secObj) {
-    var requiredFields = ['id', 'type', 'table_number', 'status', 'place_id'];
+    var requiredFields = ['id', 'type', 'name'];
     for (var i = 0; i < requiredFields.length; i++) {
       if (!newDoc.hasOwnProperty(requiredFields[i])) {
         throw({forbidden: 'Document must include ' + requiredFields[i]});
@@ -19,8 +19,8 @@ export const designDoc = {
     }
   }`,
   filters: {
-    by_type_table: `function(doc, req) {
-      if (doc.type && doc.type === 'table') {
+    by_type_places: `function(doc, req) {
+      if (doc.type && doc.type === 'places') {
         return true;
       }
       return false;

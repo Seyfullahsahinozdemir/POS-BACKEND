@@ -1,9 +1,9 @@
 import nanoInstance from "./db.service";
-import { designDoc } from "./design_documents/venues.design.doc";
+import { designDoc } from "./design_documents/places.design.doc";
 
-const dbName = "venues";
+const dbName = "places";
 
-export const initVenuesDB = async () => {
+export const initplacesDB = async () => {
   try {
     const dbList = await nanoInstance.db.list();
     if (dbList.includes(dbName)) {
@@ -42,20 +42,20 @@ export const initVenuesDB = async () => {
     // insert table design doc
     await db.insert(designDoc);
 
-    // Add venue documents
-    const venues = [
-      { id: "venue_1", type: "venue", name: "restaurant" },
-      { id: "venue_2", type: "venue", name: "bar" },
-      { id: "venue_3", type: "venue", name: "pool" },
+    // Add place documents
+    const places = [
+      { id: "place_1", type: "place", name: "restaurant" },
+      { id: "place_2", type: "place", name: "bar" },
+      { id: "place_3", type: "place", name: "pool" },
     ];
 
-    for (const venue of venues) {
-      await db.insert(venue as any);
+    for (const place of places) {
+      await db.insert(place as any);
     }
 
-    console.log("Venues added successfully");
+    console.log("places added successfully");
   } catch (err) {
-    console.error("Error creating design document or adding venues:", err);
+    console.error("Error creating design document or adding places:", err);
   }
 };
 

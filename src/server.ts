@@ -5,6 +5,8 @@ import { initProductsDB } from "./db/products.db";
 import { initOrdersDB } from "./db/orders.db";
 import { initDatabaseUserDB } from "./db/_users.db";
 import { initAppUsersDB } from "./db/app.users.db";
+import { initProductTypesDB } from "./db/product_types.db";
+import { initplacesDB } from "./db/places.db";
 
 const couchDBPort = process.env.COUCHDB_PORT || "5984";
 const couchDBUsername = process.env.COUCHDB_USERNAME || "";
@@ -20,6 +22,8 @@ const initAllDBs = async () => {
   await initOrdersDB();
   await initDatabaseUserDB();
   await initAppUsersDB();
+  await initProductTypesDB();
+  await initplacesDB();
 };
 
 async function connectToCouchDB() {

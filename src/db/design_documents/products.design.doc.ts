@@ -1,7 +1,7 @@
 export const designDoc = {
   _id: "_design/validation",
   validate_doc_update: `function (newDoc, oldDoc, userCtx, secObj) {
-    var requiredFields = ['id', 'type', 'name', 'price', 'category', 'stock'];
+    var requiredFields = ['id', 'type', 'name', 'price', 'product_type_id', 'product_type','place_id'];
     for (var i = 0; i < requiredFields.length; i++) {
       if (!newDoc.hasOwnProperty(requiredFields[i])) {
         throw({forbidden: 'Document must include ' + requiredFields[i]});

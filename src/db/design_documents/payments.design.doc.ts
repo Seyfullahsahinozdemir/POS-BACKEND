@@ -4,7 +4,7 @@ export const designDoc = {
     if (userCtx.roles.indexOf('_admin') === -1) {
       throw({forbidden: 'Only admin can change documents.'});
     }
-    var requiredFields = [ 'date', 'order_id', 'user_id', 'total_price', 'type'];
+    var requiredFields = [ 'id', 'date', 'order_id', 'user_key', 'total_price', 'type', 'payment_method'];
     for (var i = 0; i < requiredFields.length; i++) {
       if (!newDoc.hasOwnProperty(requiredFields[i])) {
         throw({forbidden: 'Document must include ' + requiredFields[i]});

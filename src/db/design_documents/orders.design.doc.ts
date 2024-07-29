@@ -10,7 +10,7 @@ export const designDoc = {
     if (userCtx.roles.indexOf('user:' + newDoc.user_id) === -1) {
       throw({forbidden: 'You can only modify your own documents.'});
     }
-    var requiredFields = ['user_id', 'type', 'products', 'status', 'date', 'total_price', 'table_id', 'venue_id'];
+    var requiredFields = ['id', 'user_key', 'type', 'products', 'status', 'date', 'total_price', 'table_id', 'place_id'];
     for (var i = 0; i < requiredFields.length; i++) {
       if (!newDoc.hasOwnProperty(requiredFields[i])) {
         throw({forbidden: 'Document must include ' + requiredFields[i]});
@@ -27,3 +27,5 @@ export const designDoc = {
     },
   },
 };
+
+// price per unit
