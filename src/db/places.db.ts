@@ -3,7 +3,7 @@ import { designDoc } from "./design_documents/places.design.doc";
 
 const dbName = "places";
 
-export const initplacesDB = async () => {
+export const initPlacesDB = async () => {
   try {
     const dbList = await nanoInstance.db.list();
     if (dbList.includes(dbName)) {
@@ -44,9 +44,24 @@ export const initplacesDB = async () => {
 
     // Add place documents
     const places = [
-      { id: "place_1", type: "place", name: "restaurant" },
-      { id: "place_2", type: "place", name: "bar" },
-      { id: "place_3", type: "place", name: "pool" },
+      {
+        id: "place_1",
+        type: "place",
+        image_src: "/assets/restaurant.jpg",
+        name: "restaurant",
+      },
+      {
+        id: "place_2",
+        type: "place",
+        image_src: "assets/bar.jpg",
+        name: "bar",
+      },
+      {
+        id: "place_3",
+        type: "place",
+        image_src: "assets/poolbar.jpg",
+        name: "pool",
+      },
     ];
 
     for (const place of places) {

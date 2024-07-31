@@ -4,8 +4,8 @@ const config: any = {
   dbServer: {
     protocol: "http://",
     host: "localhost:5984",
-    user: "admin",
-    password: "password",
+    user: process.env.COUCHDB_USERNAME,
+    password: process.env.COUCHDB_PASSWORD,
     userDB: "sl-users",
     couchAuthDB: "_users",
   },

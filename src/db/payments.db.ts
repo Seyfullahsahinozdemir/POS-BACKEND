@@ -1,9 +1,20 @@
-import nanoInstance from "./db.service";
+import nanoInstance, {
+  remoteCouchStatus,
+  remoteNanoInstance,
+} from "./db.service";
 import { designDoc } from "./design_documents/payments.design.doc";
 
-const dbName = "orders";
+const dbName = "payments";
 
-export const initOrdersDB = async () => {
+const createReplicationDoc = (sourceDb: any, targetDb: any) => ({
+  _id: `replication_${sourceDb}_${targetDb}`,
+  source: sourceDb,
+  target: targetDb,
+  create_target: true,
+  continuous: true,
+});
+
+export const initPaymentsDB = async () => {
   try {
     const dbList = await nanoInstance.db.list();
     if (dbList.includes(dbName)) {
@@ -43,8 +54,52 @@ export const initOrdersDB = async () => {
     await db.insert(designDoc);
 
     console.log("Payments database initialized successfully.");
+
+    if (!remoteCouchStatus) {
+      return;
+    }
+
+    const remoteDbList = await remoteNanoInstance.db.list();
+    if (!remoteDbList.includes(dbName)) {
+      await remoteNanoInstance.db.create(dbName);
+
+      const remoteDb = remoteNanoInstance.db.use(dbName);
+
+      // insert order design doc
+      await remoteDb.insert(designDoc);
+
+      console.log("Remote Payments database initialized successfully.");
+    }
+
+    // Ensure _replicator database exists
+    const replicatorDbName = "_replicator";
+    const replicatorDbList = await nanoInstance.db.list();
+    if (!replicatorDbList.includes(replicatorDbName)) {
+      await nanoInstance.db.create(replicatorDbName);
+      console.log("_replicator database created successfully.");
+    }
+
+    // Create replication documents in _replicator database
+    const replicatorDb = nanoInstance.db.use(replicatorDbName);
+
+    await replicatorDb.insert(
+      createReplicationDoc(
+        "http://admin:password@127.0.0.1:5984/" + dbName,
+        `${remoteNanoInstance.config.url}/${dbName}`
+      )
+    );
+    await replicatorDb.insert(
+      createReplicationDoc(
+        `${remoteNanoInstance.config.url}/${dbName}`,
+        "http://admin:password@127.0.0.1:5984/" + dbName
+      )
+    );
+
+    console.log(
+      "Replication between local and remote Payments database set up successfully."
+    );
   } catch (err) {
-    console.error("Error initializing orders database:", err);
+    console.error("Error initializing payments database:", err);
   }
 };
 

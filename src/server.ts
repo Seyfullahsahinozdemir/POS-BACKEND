@@ -1,20 +1,12 @@
 import server from ".";
-import nano from "nano";
 import { initTablesDB } from "./db/tables.db";
 import { initProductsDB } from "./db/products.db";
 import { initOrdersDB } from "./db/orders.db";
 import { initDatabaseUserDB } from "./db/_users.db";
 import { initAppUsersDB } from "./db/app.users.db";
 import { initProductTypesDB } from "./db/product_types.db";
-import { initplacesDB } from "./db/places.db";
-
-const couchDBPort = process.env.COUCHDB_PORT || "5984";
-const couchDBUsername = process.env.COUCHDB_USERNAME || "";
-const couchDBPassword = process.env.COUCHDB_PASSWORD || "";
-
-const couch = nano(
-  `http://${couchDBUsername}:${couchDBPassword}@127.0.0.1:${couchDBPort}`
-);
+import { initPlacesDB } from "./db/places.db";
+import { initPaymentsDB } from "./db/payments.db";
 
 const initAllDBs = async () => {
   await initTablesDB();
@@ -23,21 +15,21 @@ const initAllDBs = async () => {
   await initDatabaseUserDB();
   await initAppUsersDB();
   await initProductTypesDB();
-  await initplacesDB();
+  await initPlacesDB();
+  await initPaymentsDB();
 };
 
-async function connectToCouchDB() {
+async function runServer() {
   try {
-    await couch.db.list();
-    console.log("Connected to CouchDB successfully");
-
-    void server.listen(8000, () => {
-      console.log("Server is running on port 8000");
+    void server.listen(process.env.SERVER_PORT || 8000, () => {
+      console.log(
+        `Server is running on port ${process.env.SERVER_PORT || 8000}`
+      );
     });
   } catch (error) {
-    console.error("Failed to connect to CouchDB", error);
+    console.error("Failed to connect to Local CouchDB", error);
   }
 }
 
-connectToCouchDB();
+runServer();
 initAllDBs();
