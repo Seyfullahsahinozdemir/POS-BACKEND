@@ -5,7 +5,7 @@ const config: any = {
     protocol: "http://",
     host: "localhost:5984",
     user: "admin",
-    password: "password",
+    password: "112233",
     userDB: "sl-users",
     couchAuthDB: "_users",
   },
