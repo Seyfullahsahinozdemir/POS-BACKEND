@@ -1,77 +1,98 @@
-import nanoInstance from "./db.service";
-import { designDoc } from "./design_documents/places.design.doc";
+// places.db.ts
+import {
+  masterNanoInstance,
+  companyNanoInstances,
+} from "./services/db.service";
+import {
+  validationDesignDoc,
+  filterDesignDoc,
+} from "./design_documents/places.design.doc";
+import {
+  ensureDatabaseExists,
+  addSecurityRole,
+  insertDesignDocs,
+  insertDocuments,
+  setupReplication,
+} from "./services/common.db";
 
 const dbName = "places";
 
 export const initPlacesDB = async () => {
   try {
-    const dbList = await nanoInstance.db.list();
-    if (dbList.includes(dbName)) {
-      return;
+    // Ensure databases exist
+    await ensureDatabaseExists(masterNanoInstance, dbName);
+    for (const companyInstance of Object.values(companyNanoInstances)) {
+      await ensureDatabaseExists(companyInstance, dbName);
     }
 
-    await nanoInstance.db.create(dbName);
+    const masterDb = masterNanoInstance.db.use(dbName);
 
-    const db = nanoInstance.db.use(dbName);
+    // Add waiter as member access role
+    await addSecurityRole(masterDb, "waiter");
 
-    // add waiter as member access role
-    let securityDoc: any;
-    try {
-      securityDoc = await db.get("_security");
-    } catch (err: any) {
-      if (err.statusCode === 404) {
-        securityDoc = { members: { roles: [] } };
-      } else {
-        throw err;
-      }
+    // Insert design docs for master
+    await insertDesignDocs(masterDb, [validationDesignDoc, filterDesignDoc]);
+
+    // Insert design docs for each company database
+    for (const companyInstance of Object.values(companyNanoInstances)) {
+      const companyDb = companyInstance.db.use(dbName);
+      await insertDesignDocs(companyDb, [validationDesignDoc, filterDesignDoc]);
+      await addSecurityRole(companyInstance.db.use(dbName), "waiter");
     }
-
-    const members = securityDoc.members || {};
-
-    if (!members.roles) {
-      members.roles = [];
-    }
-    if (!members.roles.includes("waiter")) {
-      members.roles.push("waiter");
-    }
-
-    securityDoc.members = members;
-
-    await db.insert(securityDoc, "_security");
-
-    // insert table design doc
-    await db.insert(designDoc);
 
     // Add place documents
     const places = [
       {
         id: "place_1",
         type: "place",
+        companyId: 1,
         image_src: "/assets/restaurant.jpg",
         name: "restaurant",
       },
       {
         id: "place_2",
         type: "place",
+        companyId: 1,
         image_src: "assets/bar.jpg",
         name: "bar",
       },
       {
         id: "place_3",
         type: "place",
+        companyId: 1,
+        image_src: "assets/poolbar.jpg",
+        name: "pool",
+      },
+      {
+        id: "place_4",
+        type: "place",
+        companyId: 2,
+        image_src: "/assets/restaurant.jpg",
+        name: "restaurant",
+      },
+      {
+        id: "place_5",
+        type: "place",
+        companyId: 2,
+        image_src: "assets/bar.jpg",
+        name: "bar",
+      },
+      {
+        id: "place_6",
+        type: "place",
+        companyId: 2,
         image_src: "assets/poolbar.jpg",
         name: "pool",
       },
     ];
 
-    for (const place of places) {
-      await db.insert(place as any);
-    }
+    await insertDocuments(masterDb, places);
 
-    console.log("places added successfully");
+    // Setup replication
+    await setupReplication(masterNanoInstance, companyNanoInstances, dbName);
   } catch (err) {
-    console.error("Error creating design document or adding places:", err);
+    console.error("Error initializing places database:", err);
   }
 };
 
-export default nanoInstance.db.use(dbName);
+export default masterNanoInstance.db.use(dbName);

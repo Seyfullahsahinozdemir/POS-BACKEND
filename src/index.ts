@@ -3,16 +3,28 @@ dotenv.config();
 import express from "express";
 import http from "http";
 import cors from "cors";
-import couchAuth from "./middleware/auth.middleware";
-import paymentRouter from "./router/payment.router";
+import { checkCompanyMiddleware } from "./middleware/check.company.middleware";
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-const server = http.createServer(app);
+// Use middleware to determine the correct companyConfig based on the request
+app.use(checkCompanyMiddleware);
 
-app.use("/api/auth", couchAuth.router);
-app.use("/api/payment", paymentRouter);
+// Use the correct router based on the attached companyConfig
+app.use("/api/auth", (req, res, next) => {
+  const companyConfig = (req as any).companyConfig;
+
+  if (companyConfig && companyConfig.router) {
+    companyConfig.router(req, res, next);
+  } else {
+    res
+      .status(404)
+      .json({ error: "Router not found for the specified company" });
+  }
+});
+
+const server = http.createServer(app);
 
 export default server;

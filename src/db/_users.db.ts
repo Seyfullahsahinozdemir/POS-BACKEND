@@ -1,18 +1,21 @@
-import nanoInstance from "./db.service";
+import { ensureDatabaseExists } from "./services/common.db";
+import {
+  companyNanoInstances,
+  masterNanoInstance,
+} from "./services/db.service";
 
 const dbName = "_users";
 
-export const initDatabaseUserDB = async () => {
+export const initUsersDB = async () => {
   try {
-    const dbList = await nanoInstance.db.list();
-    if (dbList.includes(dbName)) {
-      return;
-    }
+    await ensureDatabaseExists(masterNanoInstance, dbName);
 
-    await nanoInstance.db.create(dbName);
+    for (const companyInstance of Object.values(companyNanoInstances)) {
+      await ensureDatabaseExists(companyInstance, dbName);
+    }
   } catch (err) {
-    console.error("Error initializing products database:", err);
+    console.error("Error initializing _users database:", err);
   }
 };
 
-export default nanoInstance.db.use(dbName);
+export default masterNanoInstance.db.use(dbName);

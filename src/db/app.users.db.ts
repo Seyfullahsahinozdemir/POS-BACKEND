@@ -1,18 +1,34 @@
-import nanoInstance from "./db.service";
+import { filterDesignDoc } from "./design_documents/app.users.design.doc";
+import {
+  addSecurityRole,
+  ensureDatabaseExists,
+  insertDesignDocs,
+  setupReplication,
+} from "./services/common.db";
+import {
+  companyNanoInstances,
+  masterNanoInstance,
+} from "./services/db.service";
 
 const dbName = "sl-users";
+const designDocs = [filterDesignDoc];
 
 export const initAppUsersDB = async () => {
   try {
-    const dbList = await nanoInstance.db.list();
-    if (dbList.includes(dbName)) {
-      return;
+    await ensureDatabaseExists(masterNanoInstance, dbName);
+    await addSecurityRole(masterNanoInstance.db.use(dbName), "waiter");
+    await insertDesignDocs(masterNanoInstance.db.use(dbName), designDocs);
+
+    for (const companyInstance of Object.values(companyNanoInstances)) {
+      await ensureDatabaseExists(companyInstance, dbName);
+      await insertDesignDocs(companyInstance.db.use(dbName), designDocs);
     }
 
-    await nanoInstance.db.create(dbName);
+    // Setup replication
+    await setupReplication(masterNanoInstance, companyNanoInstances, dbName);
   } catch (err) {
-    console.error("Error initializing products database:", err);
+    console.error("Error initializing sl-users database:", err);
   }
 };
 
-export default nanoInstance.db.use(dbName);
+export default masterNanoInstance.db.use(dbName);

@@ -1,7 +1,7 @@
-export const designDoc = {
+export const validationDesignDoc = {
   _id: "_design/validation",
   validate_doc_update: `function (newDoc, oldDoc, userCtx, secObj) {
-    var requiredFields = ['id', 'type', 'table_number', 'status', 'place_id'];
+    var requiredFields = ['id', 'type', 'table_number', 'status', 'place_id', 'companyId'];
     for (var i = 0; i < requiredFields.length; i++) {
       if (!newDoc.hasOwnProperty(requiredFields[i])) {
         throw({forbidden: 'Document must include ' + requiredFields[i]});
@@ -14,16 +14,15 @@ export const designDoc = {
         }
       }
     }
-    if (userCtx.roles.indexOf('waiter') !== -1) {
-      throw({forbidden: 'User with waiter role cannot modify documents'});
-    }
   }`,
+};
+
+export const filterDesignDoc = {
+  _id: "_design/filters",
   filters: {
-    by_type_table: `function(doc, req) {
-      if (doc.type && doc.type === 'table') {
-        return true;
-      }
-      return false;
+    by_company_id: `function(doc, req) {
+      const companyId = parseInt(req.query.company_id, 10);
+      return doc.companyId === companyId;
     }`,
   },
 };

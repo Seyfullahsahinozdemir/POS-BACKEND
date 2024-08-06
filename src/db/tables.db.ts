@@ -1,68 +1,304 @@
-import nanoInstance from "./db.service";
-import { designDoc } from "./design_documents/tables.design.doc";
+import {
+  masterNanoInstance,
+  companyNanoInstances,
+} from "./services/db.service";
+import {
+  validationDesignDoc,
+  filterDesignDoc,
+} from "./design_documents/tables.design.doc";
+import {
+  ensureDatabaseExists,
+  addSecurityRole,
+  insertDesignDocs,
+  insertDocuments,
+  setupReplication,
+} from "./services/common.db";
 
 const dbName = "tables";
 
+// Function to initialize the tables database and setup replication
 export const initTablesDB = async () => {
   try {
-    const dbList = await nanoInstance.db.list();
-    if (dbList.includes(dbName)) {
-      return;
+    // Ensure databases exist
+    await ensureDatabaseExists(masterNanoInstance, dbName);
+    for (const companyInstance of Object.values(companyNanoInstances)) {
+      await ensureDatabaseExists(companyInstance, dbName);
     }
 
-    await nanoInstance.db.create(dbName);
+    const masterDb = masterNanoInstance.db.use(dbName);
 
-    const db = nanoInstance.db.use(dbName);
+    // Add waiter as member access role
+    await addSecurityRole(masterDb, "waiter");
 
-    // add waiter as member access role.
-    let securityDoc: any;
-    try {
-      securityDoc = await db.get("_security");
-    } catch (err: any) {
-      if (err.statusCode === 404) {
-        securityDoc = { members: { roles: [] } };
-      } else {
-        throw err;
-      }
+    // Insert design docs for master
+    await insertDesignDocs(masterDb, [validationDesignDoc, filterDesignDoc]);
+
+    // Insert design docs for each company database
+    for (const companyInstance of Object.values(companyNanoInstances)) {
+      const companyDb = companyInstance.db.use(dbName);
+      await insertDesignDocs(companyDb, [validationDesignDoc, filterDesignDoc]);
+      await addSecurityRole(companyInstance.db.use(dbName), "waiter");
     }
+    const tables = [
+      // Company 1
+      {
+        id: "place_1_table_1",
+        type: "table",
+        table_number: 1,
+        status: "available",
+        place_id: "place_1",
+        companyId: 1,
+      },
+      {
+        id: "place_1_table_2",
+        type: "table",
+        table_number: 2,
+        status: "available",
+        place_id: "place_1",
+        companyId: 1,
+      },
+      {
+        id: "place_1_table_3",
+        type: "table",
+        table_number: 3,
+        status: "available",
+        place_id: "place_1",
+        companyId: 1,
+      },
+      {
+        id: "place_1_table_4",
+        type: "table",
+        table_number: 4,
+        status: "available",
+        place_id: "place_1",
+        companyId: 1,
+      },
+      {
+        id: "place_1_table_5",
+        type: "table",
+        table_number: 5,
+        status: "available",
+        place_id: "place_1",
+        companyId: 1,
+      },
 
-    const members = securityDoc.members || {};
+      {
+        id: "place_2_table_1",
+        type: "table",
+        table_number: 1,
+        status: "available",
+        place_id: "place_2",
+        companyId: 1,
+      },
+      {
+        id: "place_2_table_2",
+        type: "table",
+        table_number: 2,
+        status: "available",
+        place_id: "place_2",
+        companyId: 1,
+      },
+      {
+        id: "place_2_table_3",
+        type: "table",
+        table_number: 3,
+        status: "available",
+        place_id: "place_2",
+        companyId: 1,
+      },
+      {
+        id: "place_2_table_4",
+        type: "table",
+        table_number: 4,
+        status: "available",
+        place_id: "place_2",
+        companyId: 1,
+      },
+      {
+        id: "place_2_table_5",
+        type: "table",
+        table_number: 5,
+        status: "available",
+        place_id: "place_2",
+        companyId: 1,
+      },
 
-    if (!members.roles) {
-      members.roles = [];
-    }
-    if (!members.roles.includes("waiter")) {
-      members.roles.push("waiter");
-    }
+      {
+        id: "place_3_table_1",
+        type: "table",
+        table_number: 1,
+        status: "available",
+        place_id: "place_3",
+        companyId: 1,
+      },
+      {
+        id: "place_3_table_2",
+        type: "table",
+        table_number: 2,
+        status: "available",
+        place_id: "place_3",
+        companyId: 1,
+      },
+      {
+        id: "place_3_table_3",
+        type: "table",
+        table_number: 3,
+        status: "available",
+        place_id: "place_3",
+        companyId: 1,
+      },
+      {
+        id: "place_3_table_4",
+        type: "table",
+        table_number: 4,
+        status: "available",
+        place_id: "place_3",
+        companyId: 1,
+      },
+      {
+        id: "place_3_table_5",
+        type: "table",
+        table_number: 5,
+        status: "available",
+        place_id: "place_3",
+        companyId: 1,
+      },
 
-    securityDoc.members = members;
+      // Company 2
+      {
+        id: "place_4_table_1",
+        type: "table",
+        table_number: 1,
+        status: "available",
+        place_id: "place_4",
+        companyId: 2,
+      },
+      {
+        id: "place_4_table_2",
+        type: "table",
+        table_number: 2,
+        status: "available",
+        place_id: "place_4",
+        companyId: 2,
+      },
+      {
+        id: "place_4_table_3",
+        type: "table",
+        table_number: 3,
+        status: "available",
+        place_id: "place_4",
+        companyId: 2,
+      },
+      {
+        id: "place_4_table_4",
+        type: "table",
+        table_number: 4,
+        status: "available",
+        place_id: "place_4",
+        companyId: 2,
+      },
+      {
+        id: "place_4_table_5",
+        type: "table",
+        table_number: 5,
+        status: "available",
+        place_id: "place_4",
+        companyId: 2,
+      },
 
-    await db.insert(securityDoc, "_security");
+      {
+        id: "place_5_table_1",
+        type: "table",
+        table_number: 1,
+        status: "available",
+        place_id: "place_5",
+        companyId: 2,
+      },
+      {
+        id: "place_5_table_2",
+        type: "table",
+        table_number: 2,
+        status: "available",
+        place_id: "place_5",
+        companyId: 2,
+      },
+      {
+        id: "place_5_table_3",
+        type: "table",
+        table_number: 3,
+        status: "available",
+        place_id: "place_5",
+        companyId: 2,
+      },
+      {
+        id: "place_5_table_4",
+        type: "table",
+        table_number: 4,
+        status: "available",
+        place_id: "place_5",
+        companyId: 2,
+      },
+      {
+        id: "place_5_table_5",
+        type: "table",
+        table_number: 5,
+        status: "available",
+        place_id: "place_5",
+        companyId: 2,
+      },
 
-    // insert table design doc
-    await db.insert(designDoc);
+      {
+        id: "place_6_table_1",
+        type: "table",
+        table_number: 1,
+        status: "available",
+        place_id: "place_6",
+        companyId: 2,
+      },
+      {
+        id: "place_6_table_2",
+        type: "table",
+        table_number: 2,
+        status: "available",
+        place_id: "place_6",
+        companyId: 2,
+      },
+      {
+        id: "place_6_table_3",
+        type: "table",
+        table_number: 3,
+        status: "available",
+        place_id: "place_6",
+        companyId: 2,
+      },
+      {
+        id: "place_6_table_4",
+        type: "table",
+        table_number: 4,
+        status: "available",
+        place_id: "place_6",
+        companyId: 2,
+      },
+      {
+        id: "place_6_table_5",
+        type: "table",
+        table_number: 5,
+        status: "available",
+        place_id: "place_6",
+        companyId: 2,
+      },
+    ];
 
-    // Define places and add tables
-    const places = ["place_1", "place_2", "place_3"];
-    const tablesPerplace = 10;
+    await insertDocuments(masterDb, tables);
 
-    for (const placeId of places) {
-      for (let i = 1; i <= tablesPerplace; i++) {
-        const tableDoc = {
-          id: `${placeId}_table_${i}`,
-          type: "table",
-          table_number: i,
-          status: "available", // or any other default value
-          place_id: placeId,
-        };
-        await db.insert(tableDoc as any);
-      }
-    }
-
-    console.log("Tables added successfully");
+    // Setup replication
+    await setupReplication(masterNanoInstance, companyNanoInstances, dbName);
   } catch (err) {
-    console.error("Error creating design document or adding tables:", err);
+    console.error(
+      "Error initializing tables database and setting up replication:",
+      err
+    );
   }
 };
 
-export default nanoInstance.db.use(dbName);
+export default masterNanoInstance.db.use(dbName);

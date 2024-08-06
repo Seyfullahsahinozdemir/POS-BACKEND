@@ -1,4 +1,5 @@
-export const designDoc = {
+// validation design document
+export const validationDesignDoc = {
   _id: "_design/validation",
   validate_doc_update: `function (newDoc, oldDoc, userCtx, secObj) {
     var requiredFields = ['id', 'type', 'name', 'place', 'place_id'];
@@ -14,16 +15,16 @@ export const designDoc = {
         }
       }
     }
-    if (userCtx.roles.indexOf('waiter') !== -1) {
-      throw({forbidden: 'User with waiter role cannot modify documents'});
-    }
   }`,
+};
+
+// filter design document
+export const filterDesignDoc = {
+  _id: "_design/filters",
   filters: {
-    by_type_product_type: `function(doc, req) {
-      if (doc.type && doc.type === 'product_type') {
-        return true;
-      }
-      return false;
+    by_company_id: `function(doc, req) {
+      const companyId = parseInt(req.query.company_id, 10);
+      return doc.companyId === companyId;
     }`,
   },
 };
