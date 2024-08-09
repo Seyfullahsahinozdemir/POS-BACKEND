@@ -6,6 +6,7 @@ import { initUsersDB } from "./db/_users.db";
 import { initAppUsersDB } from "./db/app.users.db";
 import { initProductTypesDB } from "./db/product_types.db";
 import { initPlacesDB } from "./db/places.db";
+import { checkConflicts } from "./utils/event/listen.conflicts";
 // import { initPaymentsDB } from "./db/payments.db";
 
 const initAllDBs = async () => {
@@ -35,3 +36,4 @@ async function runServer() {
 
 runServer();
 initAllDBs();
+checkConflicts();

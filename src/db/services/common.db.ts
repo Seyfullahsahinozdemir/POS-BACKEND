@@ -90,8 +90,7 @@ export const createReplicationDoc = (
   target: target,
   create_target: true,
   continuous: true,
-  filter: "filters/by_company_id",
-  query_params: {
+  selector: {
     company_id: companyId,
   },
 });

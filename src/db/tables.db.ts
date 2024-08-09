@@ -47,7 +47,8 @@ export const initTablesDB = async () => {
         table_number: 1,
         status: "available",
         place_id: "place_1",
-        companyId: 1,
+        company_id: 1,
+        orders: [],
       },
       {
         id: "place_1_table_2",
@@ -55,7 +56,8 @@ export const initTablesDB = async () => {
         table_number: 2,
         status: "available",
         place_id: "place_1",
-        companyId: 1,
+        company_id: 1,
+        orders: [],
       },
       {
         id: "place_1_table_3",
@@ -63,7 +65,8 @@ export const initTablesDB = async () => {
         table_number: 3,
         status: "available",
         place_id: "place_1",
-        companyId: 1,
+        company_id: 1,
+        orders: [],
       },
       {
         id: "place_1_table_4",
@@ -71,7 +74,8 @@ export const initTablesDB = async () => {
         table_number: 4,
         status: "available",
         place_id: "place_1",
-        companyId: 1,
+        company_id: 1,
+        orders: [],
       },
       {
         id: "place_1_table_5",
@@ -79,16 +83,17 @@ export const initTablesDB = async () => {
         table_number: 5,
         status: "available",
         place_id: "place_1",
-        companyId: 1,
+        company_id: 1,
+        orders: [],
       },
-
       {
         id: "place_2_table_1",
         type: "table",
         table_number: 1,
         status: "available",
         place_id: "place_2",
-        companyId: 1,
+        company_id: 1,
+        orders: [],
       },
       {
         id: "place_2_table_2",
@@ -96,7 +101,8 @@ export const initTablesDB = async () => {
         table_number: 2,
         status: "available",
         place_id: "place_2",
-        companyId: 1,
+        company_id: 1,
+        orders: [],
       },
       {
         id: "place_2_table_3",
@@ -104,7 +110,8 @@ export const initTablesDB = async () => {
         table_number: 3,
         status: "available",
         place_id: "place_2",
-        companyId: 1,
+        company_id: 1,
+        orders: [],
       },
       {
         id: "place_2_table_4",
@@ -112,7 +119,8 @@ export const initTablesDB = async () => {
         table_number: 4,
         status: "available",
         place_id: "place_2",
-        companyId: 1,
+        company_id: 1,
+        orders: [],
       },
       {
         id: "place_2_table_5",
@@ -120,16 +128,17 @@ export const initTablesDB = async () => {
         table_number: 5,
         status: "available",
         place_id: "place_2",
-        companyId: 1,
+        company_id: 1,
+        orders: [],
       },
-
       {
         id: "place_3_table_1",
         type: "table",
         table_number: 1,
         status: "available",
         place_id: "place_3",
-        companyId: 1,
+        company_id: 1,
+        orders: [],
       },
       {
         id: "place_3_table_2",
@@ -137,7 +146,8 @@ export const initTablesDB = async () => {
         table_number: 2,
         status: "available",
         place_id: "place_3",
-        companyId: 1,
+        company_id: 1,
+        orders: [],
       },
       {
         id: "place_3_table_3",
@@ -145,7 +155,8 @@ export const initTablesDB = async () => {
         table_number: 3,
         status: "available",
         place_id: "place_3",
-        companyId: 1,
+        company_id: 1,
+        orders: [],
       },
       {
         id: "place_3_table_4",
@@ -153,7 +164,8 @@ export const initTablesDB = async () => {
         table_number: 4,
         status: "available",
         place_id: "place_3",
-        companyId: 1,
+        company_id: 1,
+        orders: [],
       },
       {
         id: "place_3_table_5",
@@ -161,9 +173,9 @@ export const initTablesDB = async () => {
         table_number: 5,
         status: "available",
         place_id: "place_3",
-        companyId: 1,
+        company_id: 1,
+        orders: [],
       },
-
       // Company 2
       {
         id: "place_4_table_1",
@@ -171,7 +183,8 @@ export const initTablesDB = async () => {
         table_number: 1,
         status: "available",
         place_id: "place_4",
-        companyId: 2,
+        company_id: 2,
+        orders: [],
       },
       {
         id: "place_4_table_2",
@@ -179,7 +192,8 @@ export const initTablesDB = async () => {
         table_number: 2,
         status: "available",
         place_id: "place_4",
-        companyId: 2,
+        company_id: 2,
+        orders: [],
       },
       {
         id: "place_4_table_3",
@@ -187,7 +201,8 @@ export const initTablesDB = async () => {
         table_number: 3,
         status: "available",
         place_id: "place_4",
-        companyId: 2,
+        company_id: 2,
+        orders: [],
       },
       {
         id: "place_4_table_4",
@@ -195,7 +210,8 @@ export const initTablesDB = async () => {
         table_number: 4,
         status: "available",
         place_id: "place_4",
-        companyId: 2,
+        company_id: 2,
+        orders: [],
       },
       {
         id: "place_4_table_5",
@@ -203,16 +219,17 @@ export const initTablesDB = async () => {
         table_number: 5,
         status: "available",
         place_id: "place_4",
-        companyId: 2,
+        company_id: 2,
+        orders: [],
       },
-
       {
         id: "place_5_table_1",
         type: "table",
         table_number: 1,
         status: "available",
         place_id: "place_5",
-        companyId: 2,
+        company_id: 2,
+        orders: [],
       },
       {
         id: "place_5_table_2",
@@ -220,7 +237,8 @@ export const initTablesDB = async () => {
         table_number: 2,
         status: "available",
         place_id: "place_5",
-        companyId: 2,
+        company_id: 2,
+        orders: [],
       },
       {
         id: "place_5_table_3",
@@ -228,7 +246,8 @@ export const initTablesDB = async () => {
         table_number: 3,
         status: "available",
         place_id: "place_5",
-        companyId: 2,
+        company_id: 2,
+        orders: [],
       },
       {
         id: "place_5_table_4",
@@ -236,7 +255,8 @@ export const initTablesDB = async () => {
         table_number: 4,
         status: "available",
         place_id: "place_5",
-        companyId: 2,
+        company_id: 2,
+        orders: [],
       },
       {
         id: "place_5_table_5",
@@ -244,16 +264,17 @@ export const initTablesDB = async () => {
         table_number: 5,
         status: "available",
         place_id: "place_5",
-        companyId: 2,
+        company_id: 2,
+        orders: [],
       },
-
       {
         id: "place_6_table_1",
         type: "table",
         table_number: 1,
         status: "available",
         place_id: "place_6",
-        companyId: 2,
+        company_id: 2,
+        orders: [],
       },
       {
         id: "place_6_table_2",
@@ -261,7 +282,8 @@ export const initTablesDB = async () => {
         table_number: 2,
         status: "available",
         place_id: "place_6",
-        companyId: 2,
+        company_id: 2,
+        orders: [],
       },
       {
         id: "place_6_table_3",
@@ -269,7 +291,8 @@ export const initTablesDB = async () => {
         table_number: 3,
         status: "available",
         place_id: "place_6",
-        companyId: 2,
+        company_id: 2,
+        orders: [],
       },
       {
         id: "place_6_table_4",
@@ -277,7 +300,8 @@ export const initTablesDB = async () => {
         table_number: 4,
         status: "available",
         place_id: "place_6",
-        companyId: 2,
+        company_id: 2,
+        orders: [],
       },
       {
         id: "place_6_table_5",
@@ -285,7 +309,8 @@ export const initTablesDB = async () => {
         table_number: 5,
         status: "available",
         place_id: "place_6",
-        companyId: 2,
+        company_id: 2,
+        orders: [],
       },
     ];
 

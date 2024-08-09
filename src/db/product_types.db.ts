@@ -49,7 +49,7 @@ export const initProductTypesDB = async () => {
         name: "beverages",
         place: "restaurant",
         place_id: "place_1",
-        companyId: 1,
+        company_id: 1,
       },
       {
         id: "product_type_2",
@@ -57,7 +57,7 @@ export const initProductTypesDB = async () => {
         name: "snacks",
         place: "restaurant",
         place_id: "place_1",
-        companyId: 1,
+        company_id: 1,
       },
       {
         id: "product_type_3",
@@ -65,7 +65,7 @@ export const initProductTypesDB = async () => {
         name: "desserts",
         place: "restaurant",
         place_id: "place_1",
-        companyId: 1,
+        company_id: 1,
       },
       {
         id: "product_type_4",
@@ -73,7 +73,7 @@ export const initProductTypesDB = async () => {
         name: "beverages",
         place: "bar",
         place_id: "place_2",
-        companyId: 1,
+        company_id: 1,
       },
       {
         id: "product_type_5",
@@ -81,7 +81,7 @@ export const initProductTypesDB = async () => {
         name: "snacks",
         place: "bar",
         place_id: "place_2",
-        companyId: 1,
+        company_id: 1,
       },
       {
         id: "product_type_6",
@@ -89,7 +89,7 @@ export const initProductTypesDB = async () => {
         name: "cocktails",
         place: "bar",
         place_id: "place_2",
-        companyId: 1,
+        company_id: 1,
       },
       {
         id: "product_type_7",
@@ -97,7 +97,7 @@ export const initProductTypesDB = async () => {
         name: "beverages",
         place: "pool",
         place_id: "place_3",
-        companyId: 1,
+        company_id: 1,
       },
       {
         id: "product_type_8",
@@ -105,7 +105,7 @@ export const initProductTypesDB = async () => {
         name: "snacks",
         place: "pool",
         place_id: "place_3",
-        companyId: 1,
+        company_id: 1,
       },
       {
         id: "product_type_9",
@@ -113,7 +113,7 @@ export const initProductTypesDB = async () => {
         name: "smoothies",
         place: "pool",
         place_id: "place_3",
-        companyId: 1,
+        company_id: 1,
       },
 
       // Company 2
@@ -123,7 +123,7 @@ export const initProductTypesDB = async () => {
         name: "beverages",
         place: "restaurant",
         place_id: "place_4",
-        companyId: 2,
+        company_id: 2,
       },
       {
         id: "product_type_11",
@@ -131,7 +131,7 @@ export const initProductTypesDB = async () => {
         name: "snacks",
         place: "restaurant",
         place_id: "place_4",
-        companyId: 2,
+        company_id: 2,
       },
       {
         id: "product_type_12",
@@ -139,7 +139,7 @@ export const initProductTypesDB = async () => {
         name: "desserts",
         place: "restaurant",
         place_id: "place_4",
-        companyId: 2,
+        company_id: 2,
       },
       {
         id: "product_type_13",
@@ -147,7 +147,7 @@ export const initProductTypesDB = async () => {
         name: "beverages",
         place: "bar",
         place_id: "place_5",
-        companyId: 2,
+        company_id: 2,
       },
       {
         id: "product_type_14",
@@ -155,7 +155,7 @@ export const initProductTypesDB = async () => {
         name: "snacks",
         place: "bar",
         place_id: "place_5",
-        companyId: 2,
+        company_id: 2,
       },
       {
         id: "product_type_15",
@@ -163,7 +163,7 @@ export const initProductTypesDB = async () => {
         name: "cocktails",
         place: "bar",
         place_id: "place_5",
-        companyId: 2,
+        company_id: 2,
       },
       {
         id: "product_type_16",
@@ -171,7 +171,7 @@ export const initProductTypesDB = async () => {
         name: "beverages",
         place: "pool",
         place_id: "place_6",
-        companyId: 2,
+        company_id: 2,
       },
       {
         id: "product_type_17",
@@ -179,7 +179,7 @@ export const initProductTypesDB = async () => {
         name: "snacks",
         place: "pool",
         place_id: "place_6",
-        companyId: 2,
+        company_id: 2,
       },
       {
         id: "product_type_18",
@@ -187,7 +187,7 @@ export const initProductTypesDB = async () => {
         name: "smoothies",
         place: "pool",
         place_id: "place_6",
-        companyId: 2,
+        company_id: 2,
       },
     ];
 
