@@ -28,7 +28,7 @@ export const initTablesDB = async () => {
     const masterDb = masterNanoInstance.db.use(dbName);
 
     // Add waiter as member access role
-    await addSecurityRole(masterDb, "waiter");
+    await addSecurityRole(masterDb, "user");
 
     // Insert design docs for master
     await insertDesignDocs(masterDb, [validationDesignDoc, filterDesignDoc]);
@@ -37,7 +37,7 @@ export const initTablesDB = async () => {
     for (const companyInstance of Object.values(companyNanoInstances)) {
       const companyDb = companyInstance.db.use(dbName);
       await insertDesignDocs(companyDb, [validationDesignDoc, filterDesignDoc]);
-      await addSecurityRole(companyInstance.db.use(dbName), "waiter");
+      await addSecurityRole(companyInstance.db.use(dbName), "user");
     }
     const tables = [
       // Company 1

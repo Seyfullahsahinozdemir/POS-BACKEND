@@ -12,6 +12,19 @@ app.use(express.json());
 // Use middleware to determine the correct companyConfig based on the request
 app.use(checkCompanyMiddleware);
 
+// Middleware to wait for 10 seconds after companyConfig is set
+app.use((req, res, next) => {
+  const companyConfig = (req as any).companyConfig;
+
+  if (companyConfig) {
+    setTimeout(() => {
+      next();
+    }, 3000); // 10 seconds
+  } else {
+    next();
+  }
+});
+
 // Use the correct router based on the attached companyConfig
 app.use("/api/auth", (req, res, next) => {
   const companyConfig = (req as any).companyConfig;

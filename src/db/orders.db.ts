@@ -19,13 +19,13 @@ const designDocs = [validationDesignDoc, filterDesignDoc];
 export const initOrdersDB = async () => {
   try {
     await ensureDatabaseExists(masterNanoInstance, dbName);
-    await addSecurityRole(masterNanoInstance.db.use(dbName), "waiter");
+    await addSecurityRole(masterNanoInstance.db.use(dbName), "user");
     await insertDesignDocs(masterNanoInstance.db.use(dbName), designDocs);
 
     for (const companyInstance of Object.values(companyNanoInstances)) {
       await ensureDatabaseExists(companyInstance, dbName);
       await insertDesignDocs(companyInstance.db.use(dbName), designDocs);
-      await addSecurityRole(companyInstance.db.use(dbName), "waiter");
+      await addSecurityRole(companyInstance.db.use(dbName), "user");
     }
 
     // Setup replication

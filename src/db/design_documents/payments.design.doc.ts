@@ -2,7 +2,7 @@ export const validationDesignDoc = {
   _id: "_design/validation",
   validate_doc_update: `function (newDoc, oldDoc, userCtx, secObj) {
     var requiredFields = [ 'id', 'date', 'order_id', 'user_key', 'total_price', 'type', 'payment_method'];
-    var allowedRoles = ['_admin', 'waiter']; 
+    var allowedRoles = ['_admin', 'user']; 
 
     if (allowedRoles.indexOf(userCtx.roles[0]) === -1) {
       throw({forbidden: 'You are not authorized to modify this document'});

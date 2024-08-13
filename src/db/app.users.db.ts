@@ -16,7 +16,7 @@ const designDocs = [filterDesignDoc];
 export const initAppUsersDB = async () => {
   try {
     await ensureDatabaseExists(masterNanoInstance, dbName);
-    await addSecurityRole(masterNanoInstance.db.use(dbName), "waiter");
+    await addSecurityRole(masterNanoInstance.db.use(dbName), "user");
     await insertDesignDocs(masterNanoInstance.db.use(dbName), designDocs);
 
     for (const companyInstance of Object.values(companyNanoInstances)) {
