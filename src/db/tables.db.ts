@@ -42,6 +42,7 @@ export const initTablesDB = async () => {
     const tables = [
       // Company 1
       {
+        _id: "place_1_table_1",
         id: "place_1_table_1",
         type: "table",
         table_number: 1,
@@ -51,6 +52,7 @@ export const initTablesDB = async () => {
         orders: [],
       },
       {
+        _id: "place_1_table_2",
         id: "place_1_table_2",
         type: "table",
         table_number: 2,
@@ -60,6 +62,7 @@ export const initTablesDB = async () => {
         orders: [],
       },
       {
+        _id: "place_1_table_3",
         id: "place_1_table_3",
         type: "table",
         table_number: 3,
@@ -69,6 +72,7 @@ export const initTablesDB = async () => {
         orders: [],
       },
       {
+        _id: "place_1_table_4",
         id: "place_1_table_4",
         type: "table",
         table_number: 4,
@@ -78,6 +82,7 @@ export const initTablesDB = async () => {
         orders: [],
       },
       {
+        _id: "place_1_table_5",
         id: "place_1_table_5",
         type: "table",
         table_number: 5,
@@ -87,6 +92,7 @@ export const initTablesDB = async () => {
         orders: [],
       },
       {
+        _id: "place_2_table_1",
         id: "place_2_table_1",
         type: "table",
         table_number: 1,
@@ -96,6 +102,7 @@ export const initTablesDB = async () => {
         orders: [],
       },
       {
+        _id: "place_2_table_2",
         id: "place_2_table_2",
         type: "table",
         table_number: 2,
@@ -105,6 +112,7 @@ export const initTablesDB = async () => {
         orders: [],
       },
       {
+        _id: "place_2_table_3",
         id: "place_2_table_3",
         type: "table",
         table_number: 3,
@@ -114,6 +122,7 @@ export const initTablesDB = async () => {
         orders: [],
       },
       {
+        _id: "place_2_table_4",
         id: "place_2_table_4",
         type: "table",
         table_number: 4,
@@ -123,6 +132,7 @@ export const initTablesDB = async () => {
         orders: [],
       },
       {
+        _id: "place_2_table_5",
         id: "place_2_table_5",
         type: "table",
         table_number: 5,
@@ -132,6 +142,7 @@ export const initTablesDB = async () => {
         orders: [],
       },
       {
+        _id: "place_3_table_1",
         id: "place_3_table_1",
         type: "table",
         table_number: 1,
@@ -141,6 +152,7 @@ export const initTablesDB = async () => {
         orders: [],
       },
       {
+        _id: "place_3_table_2",
         id: "place_3_table_2",
         type: "table",
         table_number: 2,
@@ -150,6 +162,7 @@ export const initTablesDB = async () => {
         orders: [],
       },
       {
+        _id: "place_3_table_3",
         id: "place_3_table_3",
         type: "table",
         table_number: 3,
@@ -159,6 +172,7 @@ export const initTablesDB = async () => {
         orders: [],
       },
       {
+        _id: "place_3_table_4",
         id: "place_3_table_4",
         type: "table",
         table_number: 4,
@@ -168,6 +182,7 @@ export const initTablesDB = async () => {
         orders: [],
       },
       {
+        _id: "place_3_table_5",
         id: "place_3_table_5",
         type: "table",
         table_number: 5,
@@ -178,6 +193,7 @@ export const initTablesDB = async () => {
       },
       // Company 2
       {
+        _id: "place_4_table_1",
         id: "place_4_table_1",
         type: "table",
         table_number: 1,
@@ -187,6 +203,7 @@ export const initTablesDB = async () => {
         orders: [],
       },
       {
+        _id: "place_4_table_2",
         id: "place_4_table_2",
         type: "table",
         table_number: 2,
@@ -196,6 +213,7 @@ export const initTablesDB = async () => {
         orders: [],
       },
       {
+        _id: "place_4_table_3",
         id: "place_4_table_3",
         type: "table",
         table_number: 3,
@@ -205,6 +223,7 @@ export const initTablesDB = async () => {
         orders: [],
       },
       {
+        _id: "place_4_table_4",
         id: "place_4_table_4",
         type: "table",
         table_number: 4,
@@ -214,6 +233,7 @@ export const initTablesDB = async () => {
         orders: [],
       },
       {
+        _id: "place_4_table_5",
         id: "place_4_table_5",
         type: "table",
         table_number: 5,
@@ -223,6 +243,7 @@ export const initTablesDB = async () => {
         orders: [],
       },
       {
+        _id: "place_5_table_1",
         id: "place_5_table_1",
         type: "table",
         table_number: 1,
@@ -232,6 +253,7 @@ export const initTablesDB = async () => {
         orders: [],
       },
       {
+        _id: "place_5_table_2",
         id: "place_5_table_2",
         type: "table",
         table_number: 2,
@@ -241,6 +263,7 @@ export const initTablesDB = async () => {
         orders: [],
       },
       {
+        _id: "place_5_table_3",
         id: "place_5_table_3",
         type: "table",
         table_number: 3,
@@ -250,6 +273,7 @@ export const initTablesDB = async () => {
         orders: [],
       },
       {
+        _id: "place_5_table_4",
         id: "place_5_table_4",
         type: "table",
         table_number: 4,
@@ -259,6 +283,7 @@ export const initTablesDB = async () => {
         orders: [],
       },
       {
+        _id: "place_5_table_5",
         id: "place_5_table_5",
         type: "table",
         table_number: 5,
@@ -268,6 +293,7 @@ export const initTablesDB = async () => {
         orders: [],
       },
       {
+        _id: "place_6_table_1",
         id: "place_6_table_1",
         type: "table",
         table_number: 1,
@@ -277,6 +303,7 @@ export const initTablesDB = async () => {
         orders: [],
       },
       {
+        _id: "place_6_table_2",
         id: "place_6_table_2",
         type: "table",
         table_number: 2,
@@ -286,6 +313,7 @@ export const initTablesDB = async () => {
         orders: [],
       },
       {
+        _id: "place_6_table_3",
         id: "place_6_table_3",
         type: "table",
         table_number: 3,
@@ -295,6 +323,7 @@ export const initTablesDB = async () => {
         orders: [],
       },
       {
+        _id: "place_6_table_4",
         id: "place_6_table_4",
         type: "table",
         table_number: 4,
@@ -304,6 +333,7 @@ export const initTablesDB = async () => {
         orders: [],
       },
       {
+        _id: "place_6_table_5",
         id: "place_6_table_5",
         type: "table",
         table_number: 5,

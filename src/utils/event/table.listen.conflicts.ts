@@ -1,10 +1,11 @@
 import { companyNanoInstances } from "../../db/services/db.service";
 const follow = require("follow");
+const nano = require("nano"); // CouchDB client
 
 const dbName = "tables";
 const retryDelay = 5000; // Retry delay in milliseconds
 
-export const checkConflicts = () => {
+export const checkTableConflicts = () => {
   Object.entries(companyNanoInstances).forEach(
     ([companyId, companyNanoInstance]) => {
       followDatabaseChanges(companyNanoInstance.config.url, dbName, companyId);
@@ -22,9 +23,30 @@ const followDatabaseChanges = (dbUrl: any, dbName: any, companyId: any) => {
 
   feed.on("change", async (change: any) => {
     console.log(change);
-    if (change.doc && change.doc._conflicts) {
-      await resolveConflict(companyId, change.doc);
-    }
+    // if (change.doc && change.doc._conflicts) {
+    //   await resolveConflict(companyId, change.doc);
+    // } else if (change.doc) {
+    //   const { _id, _rev, orders } = change.doc;
+
+    //   // Filter out deleted orders
+    //   const updatedOrders = orders.filter((order: any) => !order.is_deleted);
+
+    //   if (updatedOrders.length !== orders.length) {
+    //     try {
+    //       // Update the document with filtered orders
+    //       const updatedDoc = {
+    //         ...change.doc,
+    //         orders: updatedOrders,
+    //       };
+
+    //       const db = nano(`${dbUrl}/${dbName}`);
+    //       await db.insert(updatedDoc, _id, _rev);
+    //       console.log(`Document ${_id} updated successfully.`);
+    //     } catch (err) {
+    //       console.error(`Failed to update document ${_id}:`, err);
+    //     }
+    //   }
+    // }
   });
 
   feed.on("error", (err: any) => {
@@ -58,7 +80,7 @@ const resolveConflict = async (companyId: string, doc: any) => {
       doc._conflicts.map((rev: string) => db.get(doc._id, { rev }))
     );
 
-    // Check if all conflicts have the same testid value
+    // Check if all conflicts have the same company_id value
     const company_id = doc.company_id;
     const allCompanyIdMatch = conflicts.every(
       (conflict: any) => conflict.company_id === company_id
@@ -71,24 +93,33 @@ const resolveConflict = async (companyId: string, doc: any) => {
       return;
     }
 
-    // Merge the orders arrays from the main doc and all conflicts
-    const mergedOrders = [
-      ...doc.orders,
-      ...conflicts.flatMap((conflict: any) => conflict.orders),
-    ];
+    // Combine all orders, marking deletions correctly
+    const combinedOrdersMap: Map<string, any> = new Map();
 
-    // // Remove duplicate orders if needed
-    // const uniqueOrders = mergedOrders.reduce((acc: any, order: any) => {
-    //   if (!acc.find((o: any) => o.id === order.id)) {
-    //     acc.push(order);
-    //   }
-    //   return acc;
-    // }, []);
+    // Include orders from the main doc
+    doc.orders.forEach((order: any) => {
+      combinedOrdersMap.set(order._id, order);
+    });
+
+    // Include and override with orders from conflicts
+    conflicts.forEach((conflict: any) => {
+      conflict.orders.forEach((order: any) => {
+        // If the order is marked as deleted, remove it
+        if (order.is_deleted) {
+          combinedOrdersMap.delete(order._id);
+        } else {
+          combinedOrdersMap.set(order._id, order);
+        }
+      });
+    });
+
+    // Convert the combined orders map back to an array
+    const resolvedOrders = Array.from(combinedOrdersMap.values());
 
     // Save the resolved document
     const resolvedDoc = {
       ...doc,
-      orders: mergedOrders,
+      orders: resolvedOrders,
       _conflicts: undefined, // Clear the conflicts field
     };
 

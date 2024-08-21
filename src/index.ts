@@ -19,7 +19,7 @@ app.use((req, res, next) => {
   if (companyConfig) {
     setTimeout(() => {
       next();
-    }, 3000); // 10 seconds
+    }, 3000); // 1 seconds
   } else {
     next();
   }

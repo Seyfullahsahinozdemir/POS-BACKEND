@@ -43,6 +43,7 @@ export const initPlacesDB = async () => {
     // Add place documents
     const places = [
       {
+        _id: "place_1",
         id: "place_1",
         type: "place",
         company_id: 1,
@@ -50,6 +51,7 @@ export const initPlacesDB = async () => {
         name: "restaurant",
       },
       {
+        _id: "place_2",
         id: "place_2",
         type: "place",
         company_id: 1,
@@ -57,6 +59,7 @@ export const initPlacesDB = async () => {
         name: "bar",
       },
       {
+        _id: "place_3",
         id: "place_3",
         type: "place",
         company_id: 1,
@@ -64,6 +67,7 @@ export const initPlacesDB = async () => {
         name: "pool",
       },
       {
+        _id: "place_4",
         id: "place_4",
         type: "place",
         company_id: 2,
@@ -71,6 +75,7 @@ export const initPlacesDB = async () => {
         name: "restaurant",
       },
       {
+        _id: "place_5",
         id: "place_5",
         type: "place",
         company_id: 2,
@@ -78,6 +83,7 @@ export const initPlacesDB = async () => {
         name: "bar",
       },
       {
+        _id: "place_6",
         id: "place_6",
         type: "place",
         company_id: 2,
